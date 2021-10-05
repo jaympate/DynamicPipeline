@@ -1,0 +1,31 @@
+- job:
+    project-type: pipeline
+    name: <Pipeline Name>
+    sandbox: true
+    parameters:
+    - string:
+        default: <Build Name>
+        description: 'build name'
+        name: BUILD_NAME
+    - string:
+        default: <App Git URL>
+        description: 'application git url'
+        name: GIT_URL
+    - string:
+        default: <Jenkins Credential ID>
+        description: 'git repo credentials'
+        name: Credential_ID
+        
+    pipeline-scm:
+        scm:
+        - git:
+            url: <Pipeline Git Url>
+            branches:
+              - '*/main'
+            clean: true
+            credentials-id: <git credentials Id (Configured in Jenkins)>
+        script-path: <Path to selected groovy script>
+        lightweight-checkout: true
+    wrappers:
+    - build-name:
+        name: "#$BUILD_NUMBER mkdir $BUILD_NAME"
