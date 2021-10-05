@@ -1,0 +1,6 @@
+{
+"job_git_url":"https://github.com/fsawscoe/dynamicdevopspipeline.git",
+"repo_name":"dynamicdevopspipeline",
+"default_home_path":"/home/ec2-user/",
+"credentials_id":"4e0277b8-19db-4af6-b11d-c6e776ee7fbb"
+}
