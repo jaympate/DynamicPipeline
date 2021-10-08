@@ -46,8 +46,9 @@ def selectpipeline(input):
         pipelinescript = 'react_build_with_test_gzip.groovy'
         return pipelinescript
     else:
+        print ("49") # printing
         return False
-        print ("50") # printing
+        
         
 def modifyyamlforspring(yamlcontent,input,apprepo):
     for elem in yamlcontent:
@@ -83,12 +84,14 @@ def inputfunc(str):
 def createreactjob(input,apprepo):
     print ("84") # printing
     pipeline_repo_path=os.path.join(path,config['repo_name'])
+    print ("86") # printing
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
+        print ("91")  # printing
         pipelinescript=selectpipeline(input)
-        print ("91") # printing
+        print ("92") # printing
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
@@ -121,8 +124,8 @@ def createreactjob(input,apprepo):
                 return ('error writing yaml file')
                 print ("122") # printing
         else:
-            return ('Invalid Pipeline Type')
             print ("125") # printing
+            return ('Invalid Pipeline Type')
 
 def createspringjob(input,apprepo):
     pipeline_repo_path=os.path.join(path,config['repo_name'])
@@ -152,7 +155,7 @@ def createspringjob(input,apprepo):
 def home():
     data=request.json
     repo_path=os.path.join(path,request.json['repository']['name'])
-    print ("155") # printing
+    print ("155 - starting app") # printing
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
