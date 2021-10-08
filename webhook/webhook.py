@@ -12,7 +12,7 @@ with open('./config.json') as f:
     config=json.load(f)
     
 path = config['default_home_path']
-print ("Default home path") # printing
+
 def gitpull(path):
     repo=git.Repo(path)
     repo.remotes.origin.pull()
@@ -32,10 +32,8 @@ def writeyaml(obj,str):
 
 def selectpipeline(input):
     if input['BuildType'] == 'React_Build':
-        print ("Selecting React_Build Pipeline")  # printing
         print 
         pipelinescript ='react_build.groovy'
-        print ("Pipeline script is selected")  # priniting
         return pipelinescript
     elif input['BuildType'] == 'React_Build_With_Test':
         pipelinescript = 'react_build_with_test.groovy'
@@ -59,7 +57,6 @@ def modifyyamlforspring(yamlcontent,input,apprepo):
 
 def modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript):
     for elem in yamlcontent:
-        print ("Modify the parameters")   # printing
         elem['job']['name']=input['ApplicationName']
         elem['job']['parameters'][0]['string']['default']=input['BuildName']
         elem['job']['parameters'][1]['string']['default']=apprepo
@@ -73,11 +70,9 @@ def modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript):
 def inputfunc(str):
     with open(os.path.join(path,str)+'/pipeline_config.json') as f:
         input=json.load(f)
-        print ("Input function is returned")   # printing
     return input
 
 def createreactjob(input,apprepo):
-    print ("creating a react job")   # printing
     pipeline_repo_path=os.path.join(path,config['repo_name'])
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
@@ -86,18 +81,14 @@ def createreactjob(input,apprepo):
         pipelinescript=selectpipeline(input)
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
-            print ("modifying the yaml")  # printing
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
                 os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./reactjob.yaml')
                 return ('react job created')
             else:
-                print ("error in writing yaml file")  # printing
                 return ('error writing yaml file')
         else:
-            print (" Error in invalid pipeline type")  # printing
             return ('Invalid Pipeline Type')
     else:
-        print ("In else statement")  # printing
         gitclone(path,config['job_git_url'])
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
