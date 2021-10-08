@@ -16,32 +16,39 @@ path = config['default_home_path']
 def gitpull(path):
     repo=git.Repo(path)
     repo.remotes.origin.pull()
-
+    print ("19")                                                                  # printing
 def gitclone(path,repo):
     git.Git(path).clone(repo)
-
+    print ("22") # printing
 def readyaml(path):
     fp=open(path).read()
     yamlcontent=yaml.load(fp)
+        print ("26")                                                                  # printing
     return yamlcontent
 
 def writeyaml(obj,str):
     fp=open(str,"w")
     yaml.dump(obj,fp)
+        print ("32") # printing
     return True
 
 def selectpipeline(input):
+        print ("36") # printing
     if input['BuildType'] == 'React_Build':
+            print ("38") # printing
         print 
         pipelinescript ='react_build.groovy'
+            print ("41") # printing
         return pipelinescript
     elif input['BuildType'] == 'React_Build_With_Test':
+            print ("43") # printing
         pipelinescript = 'react_build_with_test.groovy'
         return pipelinescript
     elif input['BuildType'] == 'React_Build_With_Test_Gzip':
         pipelinescript = 'react_build_with_test_gzip.groovy'
         return pipelinescript
     else:
+            print ("51") # printing
         return False
 
 def modifyyamlforspring(yamlcontent,input,apprepo):
@@ -56,6 +63,7 @@ def modifyyamlforspring(yamlcontent,input,apprepo):
     return yamlcontent
 
 def modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript):
+        print ("66") # printing
     for elem in yamlcontent:
         elem['job']['name']=input['ApplicationName']
         elem['job']['parameters'][0]['string']['default']=input['BuildName']
@@ -64,44 +72,59 @@ def modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript):
         elem['job']['pipeline-scm']['scm'][0]['git']['url']=config['job_git_url']
         elem['job']['pipeline-scm']['scm'][0]['git']['credentials-id']=config['credentials_id']
         elem['job']['pipeline-scm']['script-path']='pipeline/'+ pipelinescript
+            print ("75") # printing
         break
     return yamlcontent
 
 def inputfunc(str):
     with open(os.path.join(path,str)+'/pipeline_config.json') as f:
         input=json.load(f)
+            print ("82") # printing
     return input
 
 def createreactjob(input,apprepo):
+        print ("86") # printing
     pipeline_repo_path=os.path.join(path,config['repo_name'])
     if os.path.isdir(pipeline_repo_path):
+            print ("89") # printing
         gitpull(pipeline_repo_path)
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
         pipelinescript=selectpipeline(input)
+            print ("94") # printing
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
+                print ("97") # printing
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
                 os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./reactjob.yaml')
+                    print ("100") # printing
                 return ('react job created')
             else:
+                    print ("103") # printing
                 return ('error writing yaml file')
         else:
+                print ("106") # printing
             return ('Invalid Pipeline Type')
     else:
+            print ("109") # printing
         gitclone(path,config['job_git_url'])
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
         pipelinescript=selectpipeline(input)
+            print ("114") # printing
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
+                print ("117") # printing
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
                 os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./reactjob.yaml')
+                    print ("120") # printing
                 return ('react job created')
             else:
                 return ('error writing yaml file')
+                print ("124") # printing
         else:
             return ('Invalid Pipeline Type')
+            print ("127") # printing
 
 def createspringjob(input,apprepo):
     pipeline_repo_path=os.path.join(path,config['repo_name'])
@@ -131,6 +154,7 @@ def createspringjob(input,apprepo):
 def home():
     data=request.json
     repo_path=os.path.join(path,request.json['repository']['name'])
+        print ("157") # printing
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
@@ -138,13 +162,14 @@ def home():
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(input,apprepo)
             return json.dumps(final_output)
+            print ("165") # printing
         elif input['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
             final_output=createspringjob(input,apprepo)
             return json.dumps(final_output)
         else:
             return ('Invalid Application Type')
-
+    print ("170") # printing
     else:
         gitclone(path,request.json['repository']['clone_url'])
         output=inputfunc(repo_path)
@@ -152,11 +177,13 @@ def home():
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(output,apprepo)
             return json.dumps(final_output)
+            print ("180") # printing
         elif output['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
             final_output=createspringjob(output,apprepo)
             return json.dumps(final_output)
         else:
             return ('Invalid Application Type')
+            print ("187") # printing
 
 app.run(host="0.0.0.0")
