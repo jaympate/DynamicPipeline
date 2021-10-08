@@ -29,16 +29,17 @@ def readyaml(path):
 
 def writeyaml(obj,str):
     fp=open(str,"w")
+    print ("32----writeyaml")
     yaml.dump(obj,fp)
-    print ("32") # printing
+    print ("34 --- yaml.dump") # printing
     return True
 
 def selectpipeline(input):
-    print ("36 Input---", input) # printing
+    print ("Selectpipeline Input--- working") # printing
     if input['BuildType'] == 'React_Build':
-        print ("39 - React_build =  ---") # printing
+        print ("React_build ") # printing
         pipelinescript ='react_build.groovy'
-        print ("40") # printing
+        print ("go to react_build.groovy") # printing
         return pipelinescript
     elif input['BuildType'] == 'React_Build_With_Test':
         pipelinescript = 'react_build_with_test.groovy'
