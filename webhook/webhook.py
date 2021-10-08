@@ -4,6 +4,7 @@ from ruamel.yaml import YAML
 import git
 import json
 import os.path
+import pdb; pdb.set_trace() # debugging
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -32,6 +33,7 @@ def writeyaml(obj,str):
 
 def selectpipeline(input):
     if input['BuildType'] == 'React_Build':
+        print 
         pipelinescript ='react_build.groovy'
         return pipelinescript
     elif input['BuildType'] == 'React_Build_With_Test':
