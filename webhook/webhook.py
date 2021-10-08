@@ -21,6 +21,7 @@ def gitclone(path,repo):
     git.Git(path).clone(repo)
     print ("22") # printing
 def readyaml(path):
+    print ("24 - readytyaml")
     fp=open(path).read()
     yamlcontent=yaml.load(fp)
     print ("26")                                                                  # printing
@@ -159,9 +160,11 @@ def home():
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
+        print ("162 - Input")
         if input['ApplicationType'] == 'React':
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(input,apprepo)
+            print ("166")
             return json.dumps(final_output)
             print ("163") # printing
         elif input['ApplicationType'] == 'Spring':
