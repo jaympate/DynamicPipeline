@@ -83,16 +83,16 @@ def inputfunc(str):
     return input
 
 def createreactjob(input,apprepo):
-    print ("84") # printing
+    print ("86 - create react job") # printing
     pipeline_repo_path=os.path.join(path,config['repo_name'])
-    print ("86") # printing
+    print ("88") # printing
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
         print ("91")  # printing
         pipelinescript=selectpipeline(input)
-        print ("92") # printing
+        print ("95 - pipelinescript = $pipelinescript") # printing
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
@@ -104,7 +104,7 @@ def createreactjob(input,apprepo):
                 print ("100") # printing
                
         else:
-            print ("103") # printing
+            print ("107 - No valid pipeline template") # printing
             return ('Invalid Pipeline Type')
             print ("105") # printing
                           
@@ -158,9 +158,10 @@ def home():
     repo_path=os.path.join(path,request.json['repository']['name'])
     print ("155 - starting app") # printing
     if os.path.isdir(repo_path):
+        print ("161 - $repo_path")
         gitpull(repo_path)
         input=inputfunc(repo_path)
-        print ("162 - Input")
+        print ("164 - Input")
         if input['ApplicationType'] == 'React':
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(input,apprepo)
@@ -177,9 +178,11 @@ def home():
     else:
         gitclone(path,request.json['repository']['clone_url'])
         output=inputfunc(repo_path)
+        print ("181 - $repo_path")
         if output['ApplicationType'] == 'React':
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(output,apprepo)
+            print("185 - final_output")
             return json.dumps(final_output)
             print ("178") # printing
         elif output['ApplicationType'] == 'Spring':
