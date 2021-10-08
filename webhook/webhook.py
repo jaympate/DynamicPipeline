@@ -92,7 +92,7 @@ def createreactjob(input,apprepo):
         yamlcontent=readyaml(yamlpath)
         print ("91 - read yaml ---" )  # printing
         pipelinescript=selectpipeline(input)
-        print ("95 - pipelinescript) # printing
+        print ("95 - pipelinescript") # printing
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
