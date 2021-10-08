@@ -180,7 +180,7 @@ def home():
         output=inputfunc(repo_path)
         print ("181 --- ",repo_path)
         if output['ApplicationType'] == 'React':
-            print ("183 - App = React", ApplicationType)
+            print ("183 - App = React")
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(output,apprepo)
             print("185 - final_output")
