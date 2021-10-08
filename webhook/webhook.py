@@ -34,9 +34,9 @@ def writeyaml(obj,str):
     return True
 
 def selectpipeline(input):
-    print ("36") # printing
+    print ("36 Input---", input) # printing
     if input['BuildType'] == 'React_Build':
-        print ("38") # printing
+        print ("38 - React_build =  ---"BuildType) # printing
         pipelinescript ='react_build.groovy'
         print ("40") # printing
         return pipelinescript
@@ -83,14 +83,14 @@ def inputfunc(str):
     return input
 
 def createreactjob(input,apprepo):
-    print ("86 - create react job") # printing
+    print ("86 - create react job", input, apprepo) # printing
     pipeline_repo_path=os.path.join(path,config['repo_name'])
-    print ("88") # printing
+    print ("88 ---", repo_name) # printing
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
-        print ("91")  # printing
+        print ("91 - read yaml ---",yamlpath )  # printing
         pipelinescript=selectpipeline(input)
         print ("95 - pipelinescript = $pipelinescript") # printing
         if pipelinescript!= False :
@@ -178,8 +178,9 @@ def home():
     else:
         gitclone(path,request.json['repository']['clone_url'])
         output=inputfunc(repo_path)
-        print ("181 - $repo_path")
+        print ("181 --- "repo_path)
         if output['ApplicationType'] == 'React':
+            print ("183 - App = React", ApplicationType)
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(output,apprepo)
             print("185 - final_output")
