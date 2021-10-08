@@ -178,7 +178,7 @@ def home():
     else:
         gitclone(path,request.json['repository']['clone_url'])
         output=inputfunc(repo_path)
-        print ("181 --- "repo_path)
+        print ("181 --- ",repo_path)
         if output['ApplicationType'] == 'React':
             print ("183 - App = React", ApplicationType)
             apprepo=request.json['repository']['clone_url']
