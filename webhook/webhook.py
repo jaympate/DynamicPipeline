@@ -36,7 +36,7 @@ def writeyaml(obj,str):
 def selectpipeline(input):
     print ("36 Input---", input) # printing
     if input['BuildType'] == 'React_Build':
-        print ("38 - React_build =  ---"BuildType) # printing
+        print ("39 - React_build =  ---",BuildType) # printing
         pipelinescript ='react_build.groovy'
         print ("40") # printing
         return pipelinescript
