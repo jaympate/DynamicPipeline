@@ -36,7 +36,7 @@ def writeyaml(obj,str):
 def selectpipeline(input):
     print ("36 Input---", input) # printing
     if input['BuildType'] == 'React_Build':
-        print ("39 - React_build =  ---",BuildType) # printing
+        print ("39 - React_build =  ---") # printing
         pipelinescript ='react_build.groovy'
         print ("40") # printing
         return pipelinescript
@@ -83,16 +83,16 @@ def inputfunc(str):
     return input
 
 def createreactjob(input,apprepo):
-    print ("86 - create react job", input, apprepo) # printing
+    print ("86 - create react job") # printing
     pipeline_repo_path=os.path.join(path,config['repo_name'])
-    print ("88 ---", repo_name) # printing
+    print ("88 ---") # printing
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
-        print ("91 - read yaml ---",yamlpath )  # printing
+        print ("91 - read yaml ---" )  # printing
         pipelinescript=selectpipeline(input)
-        print ("95 - pipelinescript = $pipelinescript") # printing
+        print ("95 - pipelinescript) # printing
         if pipelinescript!= False :
             modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
             if(writeyaml(modifiedyaml,'./reactjob.yaml')):
