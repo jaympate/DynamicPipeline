@@ -11,6 +11,7 @@
         default: <App Git URL>
         description: 'application git url'
         name: GIT_URL
+        build-on-commit: true
     - string:
         default: <Jenkins Credential ID>
         description: 'git repo credentials'
