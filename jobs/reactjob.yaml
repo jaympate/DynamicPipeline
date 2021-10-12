@@ -29,3 +29,6 @@
     wrappers:
     - build-name:
         name: "#$BUILD_NUMBER mkdir $BUILD_NAME"
+        
+    triggers:
+      - timed: "** * * *"
