@@ -1,6 +1,7 @@
 timeout(5) {
   node("master") {
     stage("Code Check Out") {
+      poll: true
       git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/ReactApp.git'
       echo("${GIT_URL} Repository was successfully cloned.")
     }
