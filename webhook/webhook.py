@@ -146,7 +146,7 @@ def home():
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(input,apprepo)
             return json.dumps(final_output)
-            elif input['ApplicationType'] == 'Spring':
+        elif input['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
             final_output=createspringjob(input,apprepo)
             return json.dumps(final_output)
@@ -160,7 +160,7 @@ def home():
             apprepo=request.json['repository']['clone_url']
             final_output=createreactjob(output,apprepo)
             return json.dumps(final_output)
-            elif output['ApplicationType'] == 'Spring':
+        elif output['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
             final_output=createspringjob(output,apprepo)
             return json.dumps(final_output)
