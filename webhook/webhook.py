@@ -32,6 +32,7 @@ def writeyaml(obj,str):
     return True
 
 def selectpipeline(input):
+    print ("Inside selectpipeline ---")
     if input['BuildType'] == 'React_Build':
         pipelinescript ='react_build.groovy'
         print ("go to react_build.groovy") # printing
@@ -57,6 +58,7 @@ def modifyyamlforspring(yamlcontent,input,apprepo):
     return yamlcontent
 
 def modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript):
+    print ("Inside modify for react")
     for elem in yamlcontent:
         elem['job']['name']=input['ApplicationName']
         elem['job']['parameters'][0]['string']['default']=input['BuildName']
