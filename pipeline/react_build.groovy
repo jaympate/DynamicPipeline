@@ -9,15 +9,15 @@ timeout(5) {
       // nodejs('Node') {
      // sh 'npm install'
 	echo("Building node modules")
-    }
-      echo("Node Modules installed successully")
+    //}
+     	echo("Node Modules installed successully")
     }
 	
     stage("Build/Package the React Application") {
       //nodejs('Node') {
       //sh 'npm run build'
 	    
-    }
+    //}
       echo("React Application is Built Successfully")
     }
 
