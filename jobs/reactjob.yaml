@@ -28,8 +28,9 @@
         lightweight-checkout: true
     
     triggers:
-      - parameterized-timer:
-          cron: "* * * * *"
+      - pollscm:
+          cron: "*/30 * * * *"
+          ignore-post-commit-hooks: True
                          
     wrappers:
     - build-name:
