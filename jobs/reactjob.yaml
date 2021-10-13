@@ -29,7 +29,6 @@
     
     triggers:
       - groovy-script:
-            script: groovy-content
             script-file-path: <Path to selected groovy script>
             cron: "* * * * *"
                          
