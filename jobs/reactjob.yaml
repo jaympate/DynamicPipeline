@@ -30,7 +30,7 @@
     triggers:
       - pollscm:
           cron: "* * * * *"
-          ignore-post-commit-hooks: True
+          #ignore-post-commit-hooks: True
                          
     wrappers:
     - build-name:
