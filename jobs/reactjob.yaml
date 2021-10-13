@@ -28,7 +28,8 @@
         lightweight-checkout: true
     
     triggers:
-      - github
+      - github:
+            build-on-commit: true
       #- pollscm:
           #cron: '* * * * *'
           #ignore-post-commit-hooks: True
