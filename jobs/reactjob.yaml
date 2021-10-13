@@ -2,9 +2,7 @@
     project-type: pipeline
     name: <Pipeline Name>
     sandbox: true
-    auto:
-        branch: main
-    
+    trigger-defined: '* * * * *'
     parameters:
     - string:
         default: <Build Name>
