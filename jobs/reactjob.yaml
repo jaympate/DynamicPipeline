@@ -28,9 +28,8 @@
         lightweight-checkout: true
     
     triggers:
-      - github-pull-request:
-        github-hooks: true
-          #cron: "* * * * *"
+      - pollscm:
+          cron: '* * * * *'
           #ignore-post-commit-hooks: True
                          
     wrappers:
