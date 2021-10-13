@@ -26,6 +26,13 @@
             credentials-id: <git credentials Id (Configured in Jenkins)>
         script-path: <Path to selected groovy script>
         lightweight-checkout: true
+    
+    triggers:
+      - groovy-script:
+            script: groovy-content
+            script-file-path: <Path to selected groovy script>
+            cron: * * * * *
+                         
     wrappers:
     - build-name:
         name: "#$BUILD_NUMBER mkdir $BUILD_NAME"
