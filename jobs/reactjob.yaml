@@ -28,9 +28,8 @@
         lightweight-checkout: true
     
     triggers:
-      - groovy-script:
-            script-file-path: <Path to selected groovy script>
-            cron: "* * * * *"
+      - parameterized-timer:
+          cron: "* * * * *"
                          
     wrappers:
     - build-name:
