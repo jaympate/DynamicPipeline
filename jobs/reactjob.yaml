@@ -2,6 +2,9 @@
     project-type: pipeline
     name: <Pipeline Name>
     sandbox: true
+    auto:
+        branch: main
+    
     parameters:
     - string:
         default: <Build Name>
@@ -11,7 +14,6 @@
         default: <App Git URL>
         description: 'application git url'
         name: GIT_URL
-        build-on-commit: true
     - string:
         default: <Jenkins Credential ID>
         description: 'git repo credentials'
