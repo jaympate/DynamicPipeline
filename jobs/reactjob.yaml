@@ -29,7 +29,7 @@
     
     triggers:
       - pollscm:
-          cron: "*/30 * * * *"
+          cron: "* * * * *"
           ignore-post-commit-hooks: True
                          
     wrappers:
