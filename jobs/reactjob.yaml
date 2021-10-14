@@ -2,6 +2,8 @@
     project-type: pipeline
     name: <Pipeline Name>
     sandbox: true
+    auto:
+        branch: "main"
     parameters:
     - string:
         default: <Build Name>
@@ -27,10 +29,10 @@
         script-path: <Path to selected groovy script>
         lightweight-checkout: true
     
-    triggers:
-      - github:
-            build-on-commit: true
-            branch: 'main'
+    #triggers:
+     # - github:
+      #      build-on-commit: true
+       #     branch: 'main'
       #- pollscm:
           #cron: '* * * * *'
           #ignore-post-commit-hooks: True
