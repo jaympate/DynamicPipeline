@@ -6,7 +6,7 @@ timeout(5) {
     }
 	
     stage("Build Node Modules") {
-      nodejs('Node') {
+      nodejs('master') {
       sh 'npm install'
 	echo("Building node modules")
     }
