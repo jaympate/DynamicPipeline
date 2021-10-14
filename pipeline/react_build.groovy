@@ -6,10 +6,10 @@ timeout(5) {
     }
 	
     stage("Build Node Modules") {
-      nodejs('master') {
-      sh 'npm install'
+      //nodejs('Node') {
+      //sh 'npm install'
 	echo("Building node modules")
-    }
+    //}
      	echo("Node Modules installed successully")
     }
 	
