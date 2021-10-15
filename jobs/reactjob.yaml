@@ -28,11 +28,12 @@
         lightweight-checkout: true
     
     triggers:
+      cron: '* * * * *'
      # - github:
       #      build-on-commit: true
        #     branch: 'main'
-      - pollscm:
-          cron: '* * * * *'
+      #- pollscm:
+          #cron: '* * * * *'
           #ignore-post-commit-hooks: True
                          
     wrappers:
