@@ -3,7 +3,7 @@
       - git:
          url: <Application Git URL>
          branches:
-          - master
+          - main
     builders:
       - maven-target:
             maven-version: <Maven Version>
