@@ -18,7 +18,7 @@
     name: <Job Name>
     project-type: freestyle
     defaults: global
-    description: 'DThis Job Builds a Maven Spring Project'
+    description: 'This Job Builds a Maven Spring Project'
     disabled: false
     display-name: <Display Name>
     concurrent: true
