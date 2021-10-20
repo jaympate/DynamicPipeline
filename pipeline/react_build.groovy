@@ -1,6 +1,38 @@
-timeout(5) {
-  node("master")
- // tools {nodejs "node"}{
+pipeline {
+  agent any
+  tools {nodejs "node"}
+    
+  stages {
+        
+    stage('Code Check Out') {
+      steps {
+        git 'https://github.com/jaympate/ReactApp.git'
+      }
+    }
+        
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+	  
+    stage("Build/Package the React Application") {
+     steps {
+      sh 'npm run build' 
+     }
+    }
+	  
+    stage('Test') {
+      steps {
+         sh 'npm test'
+      }
+    }      
+  }
+}
+
+
+/*timeout(5) {
+  node("master"){
     stage("Code Check Out") {
       git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/ReactApp.git'
       echo("${GIT_URL} Repository was successfully cloned.")
@@ -23,4 +55,4 @@ timeout(5) {
     }
 
   }
-}
+}*/
