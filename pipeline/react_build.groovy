@@ -6,7 +6,8 @@ pipeline {
         
     stage('Code Check Out') {
       steps {
-        git 'https://github.com/jaympate/ReactApp.git'
+	git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/ReactApp.git'
+      	echo("${GIT_URL} Repository was successfully cloned.")
       }
     }
         
