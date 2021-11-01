@@ -27,13 +27,13 @@
         script-path: <Path to selected groovy script>
         lightweight-checkout: true
     
-    triggers:
+    /*triggers:
      # - github:
       #      build-on-commit: true
        #     branch: 'main'
       - pollscm:
           cron: '* * * * *'
-          #ignore-post-commit-hooks: True
+          #ignore-post-commit-hooks: True*/
                          
     wrappers:
     - build-name:
