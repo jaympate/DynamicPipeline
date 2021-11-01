@@ -33,9 +33,9 @@ def writeyaml(obj,str):
 
 def selectpipeline(input):
     print ("Inside selectpipeline ---")
-    if input['BuildType'] == 'React_Build':
-        pipelinescript ='react_build.groovy'
-        print ("go to react_build.groovy") # printing
+    if input['BuildType'] == 'dotnet':
+        pipelinescript ='dotnet.groovy'
+        print ("go to dotnet.groovy") # printing
         return pipelinescript
     elif input['BuildType'] == 'React_Build_With_Test':
         pipelinescript = 'react_build_with_test.groovy'
@@ -57,8 +57,8 @@ def modifyyamlforspring(yamlcontent,input,apprepo):
         break
     return yamlcontent
 
-def modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript):
-    print ("Inside modify for react")
+def modifyyamlfordotnet(yamlcontent,input,apprepo,pipelinescript):
+    print ("Inside modify for dotnet")
     for elem in yamlcontent:
         elem['job']['name']=input['ApplicationName']
         elem['job']['parameters'][0]['string']['default']=input['BuildName']
@@ -75,20 +75,20 @@ def inputfunc(str):
         input=json.load(f)
         return input
 
-def createreactjob(input,apprepo):
-    print ("Inside create job for react")
+def createdotnetjob(input,apprepo):
+    print ("Inside create job for dotnet")
     pipeline_repo_path=os.path.join(path,config['repo_name'])
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
-        yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
+        yamlpath=os.path.join(pipeline_repo_path,"jobs/dotnetjob.yaml")
         yamlcontent=readyaml(yamlpath)
         pipelinescript=selectpipeline(input)
         if pipelinescript!= False :
-            modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
-            if(writeyaml(modifiedyaml,'./reactjob.yaml')):
-                os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./reactjob.yaml')
-                print ("96 - React job is created") # printing
-                return ('react job created')
+            modifiedyaml=modifyyamlfordotnet(yamlcontent,input,apprepo,pipelinescript)
+            if(writeyaml(modifiedyaml,'./dotnetjob.yaml')):
+                os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./dotnetjob.yaml')
+                print ("96 - dotnet job is created") # printing
+                return ('dotnet job created')
             else:
                 return ('error writing yaml file')
                 print ("100 - error in writing to yaml file") # printing
@@ -99,15 +99,15 @@ def createreactjob(input,apprepo):
             
     else:
         gitclone(path,config['job_git_url'])
-        print ("Inside cloning react job for react")
-        yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
+        print ("Inside cloning dotnet job for dotnet")
+        yamlpath=os.path.join(pipeline_repo_path,"jobs/dotnetjob.yaml")
         yamlcontent=readyaml(yamlpath)
         pipelinescript=selectpipeline(input)
         if pipelinescript!= False :
-            modifiedyaml=modifyyamlforreact(yamlcontent,input,apprepo,pipelinescript)
-            if(writeyaml(modifiedyaml,'./reactjob.yaml')):
-                os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./reactjob.yaml')
-                return ('react job created')
+            modifiedyaml=modifyyamlfordotnet(yamlcontent,input,apprepo,pipelinescript)
+            if(writeyaml(modifiedyaml,'./dotnetjob.yaml')):
+                os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./dotnetjob.yaml')
+                return ('dotnet job created')
             else:
                 return ('error writing yaml file')
                 print ("122 - error writing to yaml file") # printing
@@ -147,10 +147,10 @@ def home():
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
-        if input['ApplicationType'] == 'React':
+        if input['ApplicationType'] == 'dotnet':
             apprepo=request.json['repository']['clone_url']
-            print ("Input selected is React")
-            final_output=createreactjob(input,apprepo)
+            print ("Input selected is dotnet")
+            final_output=createdotnetjob(input,apprepo)
             return json.dumps(final_output)
         elif input['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
@@ -162,10 +162,10 @@ def home():
     else:
         gitclone(path,request.json['repository']['clone_url'])
         output=inputfunc(repo_path)
-        if output['ApplicationType'] == 'React':
+        if output['ApplicationType'] == 'dotnet':
             apprepo=request.json['repository']['clone_url']
-            print ("Input cloned is React")
-            final_output=createreactjob(output,apprepo)
+            print ("Input cloned is dotnet")
+            final_output=createdotnetjob(output,apprepo)
             return json.dumps(final_output)
         elif output['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
