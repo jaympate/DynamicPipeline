@@ -1,9 +1,15 @@
 pipeline {
     agent any
-     triggers {
+     /*triggers {
         githubPush()
-      }
+      }*/
     stages {
+        stage('Code Check Out') {
+            steps {
+                git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/dotnetapp.git'
+                echo("${GIT_URL} Repository was successfully cloned.")
+                }
+            }
         stage('Restore packages'){
            steps{
                sh 'dotnet restore WebApplication.sln'
@@ -19,7 +25,7 @@ pipeline {
                sh 'dotnet build WebApplication.sln --configuration Release --no-restore'
             }
          }
-        stage('Test: Unit Test'){
+        /*stage('Test: Unit Test'){
            steps {
                 sh 'dotnet test XUnitTestProject/XUnitTestProject.csproj --configuration Release --no-restore'
              }
@@ -37,6 +43,6 @@ pipeline {
                sh 'cd WebApplication/bin/Release/netcoreapp3.1/publish/'
                sh 'nohup dotnet WebApplication.dll --urls="http://104.128.91.189:9090" --ip="104.128.91.189" --port=9090 --no-restore > /dev/null 2>&1 &'
              }
-        }        
+        } */       
     }
 }
