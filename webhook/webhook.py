@@ -76,6 +76,7 @@ def inputfunc(str):
         return input
 
 def createreactjob(input,apprepo):
+    print ("Inside create job for react")
     pipeline_repo_path=os.path.join(path,config['repo_name'])
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
@@ -98,6 +99,7 @@ def createreactjob(input,apprepo):
             
     else:
         gitclone(path,config['job_git_url'])
+        print ("Inside cloning react job for react")
         yamlpath=os.path.join(pipeline_repo_path,"jobs/reactjob.yaml")
         yamlcontent=readyaml(yamlpath)
         pipelinescript=selectpipeline(input)
@@ -140,12 +142,14 @@ def createspringjob(input,apprepo):
 @app.route('/', methods=['GET','POST'])
 def home():
     data=request.json
+    print ("Inside home definition")
     repo_path=os.path.join(path,request.json['repository']['name'])
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
         if input['ApplicationType'] == 'React':
             apprepo=request.json['repository']['clone_url']
+            print ("Input selected is React")
             final_output=createreactjob(input,apprepo)
             return json.dumps(final_output)
         elif input['ApplicationType'] == 'Spring':
@@ -160,6 +164,7 @@ def home():
         output=inputfunc(repo_path)
         if output['ApplicationType'] == 'React':
             apprepo=request.json['repository']['clone_url']
+            print ("Input cloned is React")
             final_output=createreactjob(output,apprepo)
             return json.dumps(final_output)
         elif output['ApplicationType'] == 'Spring':
