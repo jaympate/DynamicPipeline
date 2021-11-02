@@ -6,8 +6,7 @@ pipeline {
     stages {
         stage('Code Check Out') {
             steps {
-                git branch: 'main', credentialsId: env.Credential_ID, url: env.job_git_url
-                //git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/dotnetapp.git'
+                git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/dotnetapp.git'
                 echo("${GIT_URL} Repository was successfully cloned.")
                 }
             }
