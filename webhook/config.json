@@ -2,5 +2,6 @@
 "job_git_url":"https://github.com/jaympate/dynamicpipeline.git",
 "repo_name":"dynamicpipeline",
 "default_home_path":"/home/ec2-user/",
-"credentials_id":"77ecca35-0a5a-4c6b-adef-d3a6296f6e53"
+"credentials_id":"77ecca35-0a5a-4c6b-adef-d3a6296f6e53",
+"job_git_url_2":"https://github.com/jaympate/dotnetapp.git"
 }
