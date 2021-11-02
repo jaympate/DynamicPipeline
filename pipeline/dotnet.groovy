@@ -7,7 +7,7 @@ pipeline {
         stage('Code Check Out') {
             steps {
                 git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/dotnetapp.git'
-                echo("${GIT_URL_2} Repository was successfully cloned.")
+                //echo("${GIT_URL} Repository was successfully cloned.")
                 }
             }
         /*stage('Restore packages'){
