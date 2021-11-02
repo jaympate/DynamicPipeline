@@ -2,7 +2,7 @@
     project-type: pipeline
     name: <Pipeline Name>
     sandbox: true
-    parameters:
+    /*parameters:
     - string:
         default: <Build Name>
         description: 'build name'
@@ -14,7 +14,7 @@
     - string:
         default: <Jenkins Credential ID>
         description: 'git repo credentials'
-        name: Credential_ID
+        name: Credential_ID*/
         
     pipeline-scm:
         scm:
@@ -26,6 +26,10 @@
             credentials-id: <git credentials Id (Configured in Jenkins)>
         script-path: <Path to selected groovy script>
         lightweight-checkout: true
+        
+    builders:
+        - msbuild:
+            solution-file: WebApplication.sln
     
     /*triggers:
      # - github:
@@ -35,7 +39,7 @@
           cron: '* * * * *'
           #ignore-post-commit-hooks: True*/
                          
-    wrappers:
+    /*wrappers:
     - build-name:
-        name: "#$BUILD_NUMBER mkdir $BUILD_NAME"
+        name: "#$BUILD_NUMBER mkdir $BUILD_NAME"*/
        
