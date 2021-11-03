@@ -150,7 +150,7 @@ def home():
         input=inputfunc(repo_path)
         if input['ApplicationType'] == 'dotnet':
             apprepo=request.json['repository']['clone_url']
-            print ("Input selected is dotnet")
+            print ("Input selected is dotnet", apprepo)
             final_output=createdotnetjob(input,apprepo)
             return json.dumps(final_output)
         elif input['ApplicationType'] == 'Spring':
@@ -165,7 +165,7 @@ def home():
         output=inputfunc(repo_path)
         if output['ApplicationType'] == 'dotnet':
             apprepo=request.json['repository']['clone_url']
-            print ("Input cloned is dotnet")
+            print ("Input cloned is dotnet", apprepo)
             final_output=createdotnetjob(output,apprepo)
             return json.dumps(final_output)
         elif output['ApplicationType'] == 'Spring':
