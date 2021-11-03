@@ -7,10 +7,10 @@ pipeline {
         stage('Code Check Out') {
             steps {
                 git branch: 'main', credentialsId: env.Credential_ID, url: 'https://github.com/jaympate/dotnetapp.git'
-                //echo("${GIT_URL} Repository was successfully cloned.")
+                echo("${GIT_URL} Repository was successfully cloned.")
                 }
             }
-        /*stage('Restore packages'){
+        stage('Restore packages'){
            steps{
                sh 'dotnet restore WebApplication.sln'
             }
@@ -24,7 +24,7 @@ pipeline {
            steps{
                sh 'dotnet build WebApplication.sln --configuration Release --no-restore'
             }
-         }*/
+         }
         /*stage('Test: Unit Test'){
            steps {
                 sh 'dotnet test XUnitTestProject/XUnitTestProject.csproj --configuration Release --no-restore'
