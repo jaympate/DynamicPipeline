@@ -144,6 +144,7 @@ def home():
     data=request.json
     print ("Inside home definition")
     repo_path=os.path.join(path,request.json['repository']['name'])
+    print ("repo path is ", repo_path)
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
