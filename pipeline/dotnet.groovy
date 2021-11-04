@@ -28,7 +28,7 @@ pipeline {
                sh 'dotnet build ${FILE_NAME}.sln --configuration Release --no-restore'
             }
          }
-        /*stage('Test: Unit Test'){
+        stage('Test: Unit Test'){
            steps {
                 sh 'dotnet test XUnitTestProject/XUnitTestProject.csproj --configuration Release --no-restore'
              }
@@ -44,8 +44,8 @@ pipeline {
                        kill -9 $pid
                done'''
                sh 'cd ${FILE_NAME}/bin/Release/netcoreapp3.1/publish/'
-               sh 'nohup dotnet ${FILE_NAME}.dll --urls="http://104.128.91.189:9090" --ip="104.128.91.189" --port=9090 --no-restore > /dev/null 2>&1 &'
+               sh 'nohup dotnet ${FILE_NAME}.dll --urls="http://54.82.172.62:9090" --ip="54.82.172.62" --port=9090 --no-restore > /dev/null 2>&1 &'
              }
-        } */       
+        }        
     }
 }
