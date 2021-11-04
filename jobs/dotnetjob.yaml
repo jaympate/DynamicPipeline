@@ -35,13 +35,13 @@
         - msbuild:
             solution-file: <App File Name>.sln
     
-    /*triggers:
+    triggers:
      # - github:
       #      build-on-commit: true
        #     branch: 'main'
       - pollscm:
-          #cron: '* * * * *'
-          #ignore-post-commit-hooks: True*/
+          cron: '* * * * *'
+          #ignore-post-commit-hooks: True
                          
     wrappers:
     - build-name:
