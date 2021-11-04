@@ -1,8 +1,8 @@
 pipeline {
     agent any
-     /*triggers {
+     triggers {
         githubPush()
-      }*/
+      }
     stages {
         stage('Code Check Out') {
             steps {
