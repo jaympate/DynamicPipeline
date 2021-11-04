@@ -17,7 +17,7 @@ pipeline {
                sh 'dotnet restore ${FILE_NAME}.sln'
             }
          }        
-        stage('Clean'){
+        /*stage('Clean'){
            steps{
                echo ("Clean package")
                sh 'dotnet clean ${FILE_NAME}.sln --configuration Release'
@@ -37,6 +37,6 @@ pipeline {
              steps{
                sh 'dotnet publish ${FILE_NAME}/${FILE_NAME}.csproj --configuration Release --no-restore'
              }
-        } 
+        }*/ 
     }
 }
