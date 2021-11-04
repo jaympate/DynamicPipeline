@@ -20,14 +20,14 @@ pipeline {
         stage('Clean'){
            steps{
                echo ("Clean package")
-               sh 'dotnet clean WebApplication.sln --configuration Release'
+               sh 'dotnet clean ${FILE_NAME} --configuration Release'
             }
          }
-        /*stage('Build'){
+        stage('Build'){
            steps{
-               sh 'dotnet build WebApplication.sln --configuration Release --no-restore'
+               sh 'dotnet build ${FILE_NAME} --configuration Release --no-restore'
             }
-         }*/
+         }
         /*stage('Test: Unit Test'){
            steps {
                 sh 'dotnet test XUnitTestProject/XUnitTestProject.csproj --configuration Release --no-restore'
