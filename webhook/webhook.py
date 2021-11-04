@@ -64,9 +64,11 @@ def modifyyamlfordotnet(yamlcontent,input,apprepo,pipelinescript):
         elem['job']['parameters'][0]['string']['default']=input['BuildName']
         elem['job']['parameters'][1]['string']['default']=apprepo
         elem['job']['parameters'][2]['string']['default']=config['credentials_id']
+        elem['job']['parameters'][3]['string']['default']=input['FileName']
         elem['job']['pipeline-scm']['scm'][0]['git']['url']=config['job_git_url']
         elem['job']['pipeline-scm']['scm'][0]['git']['credentials-id']=config['credentials_id']
         elem['job']['pipeline-scm']['script-path']='pipeline/'+ pipelinescript
+        elem['job']['builders'][0]['msbuild']['solution-file']=input['FileName']
         break
     return yamlcontent
 
