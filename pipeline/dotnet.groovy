@@ -37,15 +37,6 @@ pipeline {
              steps{
                sh 'dotnet publish ${FILE_NAME}/${FILE_NAME}.csproj --configuration Release --no-restore'
              }
-        }
-        stage('Deploy'){
-             steps{
-               sh '''for pid in $(lsof -t -i:9090); do
-                       kill -9 $pid
-               done'''
-               sh 'cd ${FILE_NAME}/bin/Release/netcoreapp3.1/publish/'
-               sh 'nohup dotnet ${FILE_NAME}.dll --urls="http://54.82.172.62:9090" --ip="54.82.172.62" --port=9090 --no-restore > /dev/null 2>&1 &'
-             }
-        }        
+        } 
     }
 }
