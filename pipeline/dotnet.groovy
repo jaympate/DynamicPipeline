@@ -14,7 +14,7 @@ pipeline {
         stage('Restore packages'){
            steps{
                echo ("Restore package")
-               sh 'dotnet restore WebApplication.sln'
+               sh 'dotnet restore ${FILE_NAME}'
             }
          }        
         stage('Clean'){
@@ -23,11 +23,11 @@ pipeline {
                sh 'dotnet clean WebApplication.sln --configuration Release'
             }
          }
-        stage('Build'){
+        /*stage('Build'){
            steps{
                sh 'dotnet build WebApplication.sln --configuration Release --no-restore'
             }
-         }
+         }*/
         /*stage('Test: Unit Test'){
            steps {
                 sh 'dotnet test XUnitTestProject/XUnitTestProject.csproj --configuration Release --no-restore'
