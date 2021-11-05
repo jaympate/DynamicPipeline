@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Code Check Out') {
             steps {
-                git branch: '${Branch_Commit}', credentialsId: env.Credential_ID, url: '${APP_URL}'
+                //git branch: '${Branch_Commit}', credentialsId: env.Credential_ID, url: '${APP_URL}'
                 echo("${APP_URL} Repository was successfully cloned.")
-                //checkout([$class: 'GitSCM', branches: [[name: '*/${Branch_Commit}']], extensions: [], userRemoteConfigs: [[credentialsId: '${Credential_ID}', url: '$APP_URL']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/${Branch_Commit}']], extensions: [], userRemoteConfigs: [[credentialsId: 'env.Credential_ID', url: '$APP_URL']]])
                 }
             }
         stage('Restore packages'){
