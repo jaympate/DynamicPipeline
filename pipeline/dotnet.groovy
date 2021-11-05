@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Code Check Out') {
             steps {
-                git branch: '${Branch_Commit}', credentialsId: '${Credential_ID}', url: '${APP_URL}'
+                git branch: '${<Branch to Commit>}', credentialsId: '${Credential_ID}', url: '${APP_URL}'
                 echo("${APP_URL} Repository was successfully cloned.")
                 echo("${BUILD_NAME} for ${APP_URL}")
                 }
