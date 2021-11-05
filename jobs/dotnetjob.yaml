@@ -21,7 +21,7 @@
         name: FILE_NAME
     - string:
         default: <Branch to Commit>
-        description: 'Application File Name'
+        description: 'Application Branch to commit'
         name: Branch_Commit
      
     pipeline-scm:
