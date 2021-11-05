@@ -19,7 +19,11 @@
         default: <File Name>
         description: 'Application File Name'
         name: FILE_NAME
-        
+    - string:
+        default: <Branch to Commit>
+        description: 'Application File Name'
+        name: Branch_Commit
+     
     pipeline-scm:
         scm:
         - git:
