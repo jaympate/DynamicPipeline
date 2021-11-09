@@ -39,8 +39,10 @@
         - msbuild:
             solution-file: <App File Name>.sln
     
-    #triggers:
-     # - github:
+    triggers:
+        githubPush()
+    
+    # - github:
       #      build-on-commit: true
        #     branch: 'main'
       #- pollscm:
