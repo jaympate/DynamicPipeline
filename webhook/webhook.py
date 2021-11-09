@@ -32,21 +32,13 @@ def writeyaml(obj,str):
     return True
 
 def selectpipeline(input):
-    print ("Inside selectpipeline ---")
     if input['BuildType'] == 'dotnet':
         pipelinescript ='dotnet.groovy'
-        print ("go to dotnet.groovy") # printing
-        return pipelinescript
-    elif input['BuildType'] == 'React_Build_With_Test':
-        pipelinescript = 'react_build_with_test.groovy'
-        return pipelinescript
-    elif input['BuildType'] == 'React_Build_With_Test_Gzip':
-        pipelinescript = 'react_build_with_test_gzip.groovy'
         return pipelinescript
     else:
        return False
         
-def modifyyamlforspring(yamlcontent,input,apprepo):
+"""def modifyyamlforspring(yamlcontent,input,apprepo):
     for elem in yamlcontent:
         elem['job']['name']=input['ApplicationName']
         elem['job']['display-name']=input['BuildName']
@@ -55,21 +47,20 @@ def modifyyamlforspring(yamlcontent,input,apprepo):
         elem['job']['publishers'][0]['archive']['artifacts']=input['build_artifact_path']
         elem['job']['scm'][0]['git']['url']=apprepo    
         break
-    return yamlcontent
+    return yamlcontent"""
 
 def modifyyamlfordotnet(yamlcontent,input,apprepo,pipelinescript):
-    print ("Inside modify for dotnet")
     for elem in yamlcontent:
         elem['job']['name']=input['ApplicationName']
         elem['job']['parameters'][0]['string']['default']=input['BuildName']
         elem['job']['parameters'][1]['string']['default']=apprepo
         elem['job']['parameters'][2]['string']['default']=config['credentials_id']
-        elem['job']['parameters'][3]['string']['default']=input['FileName']
-        elem['job']['parameters'][4]['string']['default']=input['Branch']
+        elem['job']['parameters'][3]['string']['default']=input['FileName']   # Input the application file name
+        elem['job']['parameters'][4]['string']['default']=input['Branch']     # The branch where the developer code is committed
         elem['job']['pipeline-scm']['scm'][0]['git']['url']=config['job_git_url']
         elem['job']['pipeline-scm']['scm'][0]['git']['credentials-id']=config['credentials_id']
         elem['job']['pipeline-scm']['script-path']='pipeline/'+ pipelinescript
-        elem['job']['builders'][0]['msbuild']['solution-file']=input['FileName']
+        elem['job']['builders'][0]['msbuild']['solution-file']=input['FileName'] # The builder name that needs to be used
         break
     return yamlcontent
 
@@ -79,7 +70,6 @@ def inputfunc(str):
         return input
 
 def createdotnetjob(input,apprepo):
-    print ("Inside create job for dotnet")
     pipeline_repo_path=os.path.join(path,config['repo_name'])
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
@@ -90,19 +80,15 @@ def createdotnetjob(input,apprepo):
             modifiedyaml=modifyyamlfordotnet(yamlcontent,input,apprepo,pipelinescript)
             if(writeyaml(modifiedyaml,'./dotnetjob.yaml')):
                 os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./dotnetjob.yaml')
-                print ("96 - dotnet job is created") # printing
                 return ('dotnet job created')
             else:
                 return ('error writing yaml file')
-                print ("100 - error in writing to yaml file") # printing
-               
+                               
         else:
-            print ("107 - No valid pipeline template") # printing
             return ('Invalid Pipeline Type')
             
     else:
         gitclone(path,config['job_git_url'])
-        print ("Inside cloning dotnet job for dotnet")
         yamlpath=os.path.join(pipeline_repo_path,"jobs/dotnetjob.yaml")
         yamlcontent=readyaml(yamlpath)
         pipelinescript=selectpipeline(input)
@@ -113,12 +99,10 @@ def createdotnetjob(input,apprepo):
                 return ('dotnet job created')
             else:
                 return ('error writing yaml file')
-                print ("122 - error writing to yaml file") # printing
         else:
-            print ("125 - invalid pipeline type") # printing
-            return ('Invalid Pipeline Type')
+             return ('Invalid Pipeline Type')
 
-def createspringjob(input,apprepo):
+"""def createspringjob(input,apprepo):
     pipeline_repo_path=os.path.join(path,config['repo_name'])
     if os.path.isdir(pipeline_repo_path):
         gitpull(pipeline_repo_path)
@@ -139,30 +123,26 @@ def createspringjob(input,apprepo):
             os.system('jenkins-jobs --conf ./jenkins_jobs.ini update ./springmavenjob.yaml')
             return ('spring job created')
         else:
-            return ('error writing yaml file')
+            return ('error writing yaml file')"""
 
     
 @app.route('/', methods=['GET','POST'])
 def home():
     data=request.json
-    print ("Inside home definition")
     repo_path=os.path.join(path,request.json['repository']['name'])
-    print ("repo path is ", repo_path)
     if os.path.isdir(repo_path):
         gitpull(repo_path)
         input=inputfunc(repo_path)
         if input['ApplicationType'] == 'dotnet':
             apprepo=request.json['repository']['clone_url']
-            print ("Input selected is dotnet", apprepo)
             final_output=createdotnetjob(input,apprepo)
             return json.dumps(final_output)
-        elif input['ApplicationType'] == 'Spring':
+        """elif input['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
             final_output=createspringjob(input,apprepo)
             return json.dumps(final_output)
         else:
-            return ('Invalid Application Type')
-            print ("170 - Invalid application type") # printing
+            return ('Invalid Application Type')"""
     else:
         gitclone(path,request.json['repository']['clone_url'])
         output=inputfunc(repo_path)
@@ -171,12 +151,11 @@ def home():
             print ("Input cloned is dotnet", apprepo)
             final_output=createdotnetjob(output,apprepo)
             return json.dumps(final_output)
-        elif output['ApplicationType'] == 'Spring':
+        """elif output['ApplicationType'] == 'Spring':
             apprepo=request.json['repository']['clone_url']
             final_output=createspringjob(output,apprepo)
             return json.dumps(final_output)
         else:
-            return ('Invalid Application Type')
-            print ("185 - Invalid application type") # printing
+            return ('Invalid Application Type')"""
 
 app.run(host="0.0.0.0")
