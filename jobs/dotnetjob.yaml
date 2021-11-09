@@ -39,9 +39,7 @@
         - msbuild:
             solution-file: <App File Name>.sln
     
-    triggers:
-        githubPush()
-    
+    #triggers:
     # - github:
       #      build-on-commit: true
        #     branch: 'main'
